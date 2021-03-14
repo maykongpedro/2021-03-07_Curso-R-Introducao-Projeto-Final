@@ -1,0 +1,24 @@
+O trabalho final consiste em construir um projeto em R que utiliza os conceitos que aprendemos no curso, utilizando alguma base de dados como entrada e realizando alguma análise.
+
+
+
+
+O que é importante conter?
+  
+  - Uma introdução, que consiste num texto descrevendo o que o seu código fará: Qual é o objetivo da sua análise? Como você organizou os seus arquivos? Essa introdução pode estar no formato que você achar mais conveniente, por exemplo: um arquivo .docx (editado no Microsoft Word), um arquivo .txt, um script em R com comentários etc.
+
+
+# Trabalho de conclusão de curso: Introdução à programação para Ciência de Dados
+# Aluno: Maykon Gabriel G. Pedro
+# Contato: maykonglaffite@gmail.com   |  github: @maykongpedro   
+
+O que devo entregar?
+  Uma pasta contendo o seu projeto.
+
+- introdução falando o que o código fará
+- qual o objetivo da análise?
+- como organizei os arquivos?
+- um ou mais scripts
+- análises descritivas
+- manipulações relavantes para o contexto
+- scripts devem ter relação con o objetivo
