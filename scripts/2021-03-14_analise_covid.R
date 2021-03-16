@@ -1,13 +1,11 @@
-
-
 # Trabalho de conclusão de curso: Introdução à programação para Ciência de Dados
 # Aluno: Maykon Gabriel G. Pedro
 # Contato: maykonglaffite@gmail.com   |  github: @maykongpedro   
-# Sript X: Análise Covid
+# Sript 1: Análise Covid
 
 
 # Instalar pacotes
-install.packages("magrittr", "readr", "fs", "lubridate")
+install.packages("magrittr", "readr", "fs", "lubridate", "dplyr")
 
 
 # Carregar pacotes --------------------------------------------------------
@@ -29,6 +27,9 @@ covid_dados$ano <- lubridate::year(covid_dados$data)
 
 # criando coluna de mês
 covid_dados$mes <- lubridate::month(covid_dados$data)
+
+
+# Manipulação dos dados ---------------------------------------------------
 
 # verificando infos dos estados
 unique(covid_dados$estado)
@@ -110,7 +111,7 @@ for (uf in estados) {
   estado_e_obito <- data.frame(estado = uf, obito = soma_estado)
   
   # salvar informação
-  morte_por_estado <- dplyr::bind_rows(morte_por_estado, estado_e_obito)
+  obito_por_estado_df <- dplyr::bind_rows(obito_por_estado_df, estado_e_obito)
   
 }
 
