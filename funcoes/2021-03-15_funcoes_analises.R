@@ -14,11 +14,11 @@ calcula_estatisticas_descritivas <- function(df, coluna){
   
   media <- 
     mean(coluna_desejada, na.rm = TRUE) %>% 
-    round(2)
+    round(0)
   
   desvio_padrao <- 
     sd(coluna_desejada, na.rm = TRUE) %>% 
-    round(2)
+    round(0)
   
   coeficiente_de_variacao <- round(100*desvio_padrao/media, 2)
   
@@ -28,7 +28,6 @@ calcula_estatisticas_descritivas <- function(df, coluna){
   
   
   # Criando um data.frame com as estatísticas descritivas -------------------
-  
   est_descr <- data.frame(media, desvio_padrao, coeficiente_de_variacao, maximo, minimo)
   
   
@@ -49,4 +48,9 @@ calcula_estatisticas_descritivas <- function(df, coluna){
       "."
     )
 
+  print(mensagem_que_vou_imprimir)
+  
+  # Salvando data.frame
+  write.csv2(est_descr,
+             "./outputs/estatisticas.csv")
 }

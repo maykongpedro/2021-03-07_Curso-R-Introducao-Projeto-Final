@@ -58,7 +58,7 @@ anos <- seq(from = 2009, to = 2020, by = 1)
 # Manipulação dos dados ---------------------------------------------------
 
 # criando dataframe que vai receber 
-obitos_por_ano_df <- data.frame(ano = NULL, obitos = NULL)
+sarg_obitos_por_ano_df <- data.frame(ano = NULL, obitos = NULL)
 
 
 # filtrando a base
@@ -96,32 +96,34 @@ for (ano in anos) {
   ano_e_obitos <- data.frame(ano = ano, obitos = soma_ano)
   
   # salvar informação
-  obitos_por_ano_df <- dplyr::bind_rows(obitos_por_ano_df, ano_e_obitos)
+  sarg_obitos_por_ano_df <- dplyr::bind_rows(sarg_obitos_por_ano_df, ano_e_obitos)
   
 }
 
 # salvando resultado de óbitos por ano
-write.csv2(obitos_por_ano_df,
-           "./outputs/obitos_por_ano_sars.csv")
+write.csv2(sarg_obitos_por_ano_df,
+           "./outputs/sarg_obitos_por_ano.csv")
 
 
 # retirando o ano de 2020 da base
-obitos_por_ano_sem_2020 <- obitos_por_ano_df[obitos_por_ano_df$ano != "2020", ]
+sarg_obitos_por_ano_sem_2020 <- sarg_obitos_por_ano_df[sarg_obitos_por_ano_df$ano != "2020", ]
 
 
 # fazendo estatísticas descritivas dos anos
-calcula_estatisticas_descritivas(obitos_por_ano_sem_2020, "obitos")
+calcula_estatisticas_descritivas(sarg_obitos_por_ano_sem_2020, "obitos")
 
 
 # abrindo resultado
-estatisticas_obitos_sarg_ate_2019 <- readr::read_csv2("outputs//estatisticas.csv")
+estatisticas_obitos_sarg_ate_2019 <- readr::read_csv2("outputs/estatisticas.csv")
 
 
 # salvando resultado com a nomenclatura correta
 write.csv2(estatisticas_obitos_sarg_ate_2019,
-           "./outputs/estatisticas_obitos_sarg_2009-2019.csv")
+           "./outputs/sarg_estatisticas_obitos_2009-2019.csv")
 
 
+
+# calcular a média por estado?
 
 
 
@@ -141,4 +143,15 @@ sarg %>%
   dplyr::group_by(ano_epidemiologico) %>% 
   dplyr::summarise(obitos = sum(casos_semanais, na.rm = TRUE))
 
-
+  
+  
+  sarg %>% 
+  dplyr::filter(
+                dado == "obito",
+                escala == "casos",
+                situacao_do_dado == "Dado estável. Sujeito a pequenas alterações.") %>% 
+  dplyr::group_by(ano_epidemiologico, unidade_da_federacao) %>% 
+  dplyr::summarise(obitos = sum(casos_semanais, na.rm = TRUE)) %>% 
+    View()
+  
+  

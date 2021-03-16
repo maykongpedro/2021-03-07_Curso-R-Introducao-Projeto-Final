@@ -5,7 +5,7 @@
 
 
 # Instalar pacotes
-install.packages("magrittr", "readr", "fs", "lubridate", "dplyr")
+#install.packages("magrittr", "readr", "fs", "lubridate", "dplyr")
 
 
 # Carregar pacotes --------------------------------------------------------
@@ -17,16 +17,13 @@ covid_dados <- readr::read_csv2("dados/HIST_PAINEL_COVIDBR_13mar2021.csv")
 
 
 # Transformação dos dados -------------------------------------------------
-
+dplyr::glimpse(covid_dados)
 
 # veficando tipo das colunas
 str(covid_dados)
 
 # criando coluna de ano
 covid_dados$ano <- lubridate::year(covid_dados$data)
-
-# criando coluna de mês
-covid_dados$mes <- lubridate::month(covid_dados$data)
 
 
 # Manipulação dos dados ---------------------------------------------------
@@ -38,7 +35,7 @@ unique(covid_dados$estado)
 brasil_covid <- covid_dados[covid_dados$regiao == "Brasil",]
 
 # quantidade total de mortes até o momento
-obitos_covid_br <- sum(brasil_covid$obitosNovos)
+covid_tot_obitos_brasil <- sum(brasil_covid$obitosNovos)
 
 # ultima data disponível na base de dados
 ultima_data <- max(brasil_covid$data)
@@ -47,10 +44,19 @@ ultima_data <- max(brasil_covid$data)
 mensagem_obitos_br <- paste0("A quantidade de óbitos por COVID-19 até o momento (",
                              ultima_data,
                              ") foi de ",
-                             obitos_covid_br)
+                             covid_tot_obitos_brasil)
 
 print(mensagem_obitos_br)
 
+
+# filtrando somente o ano de 2020
+covid_dados_2020 <- covid_dados[covid_dados$ano == "2020", ]
+
+
+# total de óbitos em 2020
+covid_tot_obitos_2020 <- 
+  covid_dados_2020[covid_dados_2020$regiao == "Brasil", "obitosNovos"] %>% 
+  sum()
 
 
 # lista de estados
@@ -86,14 +92,14 @@ estados <-
   )
 
 # quantidade total de mortes por estado
-morte_por_estado <- data.frame(estados = NULL,
+covid_obito_por_estado_df_2020 <- data.frame(estados = NULL,
                                obitos = NULL)
 
 
 for (uf in estados) {
   
   # filtrar estado
-  coluna_estado <- covid_dados[covid_dados$estado == uf, "obitosNovos"]
+  coluna_estado <- covid_dados_2020[covid_dados_2020$estado == uf, "obitosNovos"]
   
   # fazer a soma
   soma_estado <- sum(coluna_estado, na.rm = TRUE)
@@ -101,7 +107,7 @@ for (uf in estados) {
   # organizar mensagem
   mensagem <- paste0("A quantidade de óbitos na unidade federativa ",
                      uf, 
-                     " foi de ",
+                     " no ano de 2020 foi de ",
                      soma_estado)
   
   # imprimir mensagem
@@ -111,9 +117,16 @@ for (uf in estados) {
   estado_e_obito <- data.frame(estado = uf, obito = soma_estado)
   
   # salvar informação
-  obito_por_estado_df <- dplyr::bind_rows(obito_por_estado_df, estado_e_obito)
+  covid_obito_por_estado_df_2020 <- dplyr::bind_rows(covid_obito_por_estado_df_2020, estado_e_obito)
   
 }
+
+
+# salvando arquivo de obitos por estado
+write.csv2(covid_obito_por_estado_df_2020,
+           "./outputs/covid_obitos_por_estado_2020.csv")
+
+
 
 
 
