@@ -17,7 +17,6 @@ covid_dados <- readr::read_csv2("dados/HIST_PAINEL_COVIDBR_13mar2021.csv")
 
 
 # Transformação dos dados -------------------------------------------------
-dplyr::glimpse(covid_dados)
 
 # veficando tipo das colunas
 str(covid_dados)
@@ -117,11 +116,11 @@ for (uf in estados) {
   estado_e_obito <- data.frame(estado = uf, obito = soma_estado)
   
   # salvar informação
-  covid_obito_por_estado_df_2020 <- dplyr::bind_rows(covid_obito_por_estado_df_2020, estado_e_obito)
+  covid_obito_por_estado_df_2020 <- rbind(covid_obito_por_estado_df_2020, estado_e_obito)
   
 }
 
-
+covid_obito_por_estado_df_2020
 # salvando arquivo de obitos por estado
 write.csv2(covid_obito_por_estado_df_2020,
            "./outputs/covid_obitos_por_estado_2020.csv")

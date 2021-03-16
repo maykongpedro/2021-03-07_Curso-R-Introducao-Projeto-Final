@@ -96,7 +96,7 @@ for (ano in anos) {
   ano_e_obitos <- data.frame(ano = ano, obitos = soma_ano)
   
   # salvar informação
-  sarg_obitos_por_ano_df <- dplyr::bind_rows(sarg_obitos_por_ano_df, ano_e_obitos)
+  sarg_obitos_por_ano_df <- rbind(sarg_obitos_por_ano_df, ano_e_obitos)
   
 }
 
