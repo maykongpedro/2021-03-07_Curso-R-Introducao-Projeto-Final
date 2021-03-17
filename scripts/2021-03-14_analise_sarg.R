@@ -1,11 +1,11 @@
 # Trabalho de conclusão de curso: Introdução à programação para Ciência de Dados
 # Aluno: Maykon Gabriel G. Pedro
 # Contato: maykonglaffite@gmail.com   |  github: @maykongpedro   
-# Sript 2: Análise SARG
+# Sript 3: Análise SARG
 
 
 # Instalar pacotes
-# install.packages("magrittr", "readr", "dplyr")
+# install.packages("magrittr", "readr")
 
 
 # Carregar pacotes --------------------------------------------------------
@@ -13,7 +13,7 @@ library(magrittr)
 
 
 # Carregar funções --------------------------------------------------------
-source("funcoes/2021-03-15_funcoes_analises.R")
+source("funcoes/2021-03-15_funcoes_analises.R", encoding = "UTF-8")
 
 
 # Ler arquivos ----------------------------------------------------------
@@ -21,6 +21,8 @@ source("funcoes/2021-03-15_funcoes_analises.R")
 # Esse é o filtro utilizado para apresentação dos dados seguindo o critério mais restritivo. 
 # Segue o padrão internacional de definição de SRAG, conforme Organização Mundial da Saúde. 
 # É equivalente aos registros internacionais de SARI (Severe Acute Respiratory Infection).
+# Fonte: https://gitlab.procc.fiocruz.br/mave/repo/-/tree/master/Dados/InfoGripe
+
 sarg <- readr::read_csv2("dados/InfoGripe/serie_temporal_com_estimativas_recentes.csv ")
 
 
@@ -69,11 +71,6 @@ sarg_filtrada <-
     sarg$situacao_do_dado == "Dado estável. Sujeito a pequenas alterações.", ]
 
 
-
-sarg_filtrada[sarg_filtrada$ano_epidemiologico == "2009", "casos_semanais"] %>% 
-  sum()
-
-
 # fazendo a soma de óbitos por ano
 for (ano in anos) {
   
@@ -105,6 +102,16 @@ write.csv2(sarg_obitos_por_ano_df,
            "./outputs/sarg_obitos_por_ano.csv")
 
 
+# quantidade de óbitos apenas em 2020
+sarg_obitos_tot_em_2020 <- sarg_obitos_por_ano_df[sarg_obitos_por_ano_df$ano == "2020", 2]
+
+
+# mensagem
+sarg_mensagem_obitos_br_2020 <- 
+  paste0("A quantidade de óbitos por Síndrome Respiratória Aguda Grave (SARG) em 2020 foi de ",
+         sarg_obitos_tot_em_2020)
+
+
 # retirando o ano de 2020 da base
 sarg_obitos_por_ano_sem_2020 <- sarg_obitos_por_ano_df[sarg_obitos_por_ano_df$ano != "2020", ]
 
@@ -120,38 +127,23 @@ estatisticas_obitos_sarg_ate_2019 <- readr::read_csv2("outputs/estatisticas.csv"
 # salvando resultado com a nomenclatura correta
 write.csv2(estatisticas_obitos_sarg_ate_2019,
            "./outputs/sarg_estatisticas_obitos_2009-2019.csv")
-
-
-
-# calcular a média por estado?
-
-
-
-
-sarg <- 
-  janitor::clean_names(sarg) %>% 
-  dplyr::rename(casos_semanais = "casos_semanais_reportados_ate_a_ultima_atualizacao") 
-        
-
-dplyr::glimpse(sarg)
-
-sarg %>% 
-  dplyr::filter(unidade_da_federacao == "Brasil",
-                dado == "obito",
-                escala == "casos",
-                situacao_do_dado == "Dado estável. Sujeito a pequenas alterações.") %>% 
-  dplyr::group_by(ano_epidemiologico) %>% 
-  dplyr::summarise(obitos = sum(casos_semanais, na.rm = TRUE))
-
   
-  
-  sarg %>% 
-  dplyr::filter(
-                dado == "obito",
-                escala == "casos",
-                situacao_do_dado == "Dado estável. Sujeito a pequenas alterações.") %>% 
-  dplyr::group_by(ano_epidemiologico, unidade_da_federacao) %>% 
-  dplyr::summarise(obitos = sum(casos_semanais, na.rm = TRUE)) %>% 
-    View()
-  
-  
+
+# quantidade de óbitos em 2020 que ultrapassam a média e o máximo
+sarg_obitos_superior_a_media <-
+  sarg_obitos_tot_em_2020 - estatisticas_obitos_sarg_ate_2019$media
+
+sarg_obitos_superior_ao_max <-
+  sarg_obitos_tot_em_2020 - estatisticas_obitos_sarg_ate_2019$maximo
+
+
+# ano do máximo número de óbitos até 2019
+ano_maximo_obitos <- sarg_obitos_por_ano_df[
+  sarg_obitos_por_ano_df$obitos == estatisticas_obitos_sarg_ate_2019$maximo, "ano"]
+
+
+# quantidade de vezes maior em 2020
+sarg_quanti_vezes_maior_que_a_media <-
+  round(sarg_obitos_tot_em_2020/estatisticas_obitos_sarg_ate_2019$media, 0)
+
+
