@@ -88,7 +88,7 @@ paste0("A média de óbitos de SARG entre 2009 e 2020 foi de [",
 # Quantos óbitos em 2020 ultrapassam a média e o máximo? -----------------------------
 paste0("Um total de ",
        sarg_obitos_superior_a_media,
-       " óbitos em 2020 foi superior a média encontrada no período de 2009 a 2019.",
+       " óbitos em 2020 foi superior à média encontrada no período de 2009 a 2019.",
        "Já em relação ao máximo de óbitos registrados no ano de ",
        ano_maximo_obitos,
        " do histórico (",
