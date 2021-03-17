@@ -5,7 +5,10 @@
 # Sript 1: Consolidação
 
 # Instalar pacotes --------------------------------------------------------
-install.packages("magrittr", "readr", "fs", "lubridate")
+install.packages("magrittr")
+install.packages("readr")
+install.packages("fs")
+install.packages("lubridate")
 
 # Estrutura de pastas -----------------------------------------------------
 fs::dir_tree()

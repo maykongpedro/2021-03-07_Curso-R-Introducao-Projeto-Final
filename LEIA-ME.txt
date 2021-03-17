@@ -60,7 +60,7 @@
 
 	1. <https://g1.globo.com/bemestar/coronavirus/noticia/2020/04/23/estudo-mostra-aumento-expressivo-de-internacoes-por-sindromes-respiratorias-e-indica-subnotificacao-da-covid-19.ghtml>
 
-	2.<http://info.gripe.fiocruz.br/help>
+	2. <http://info.gripe.fiocruz.br/help>
 
 # Considerações finais
 

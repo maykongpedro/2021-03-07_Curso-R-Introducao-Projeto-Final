@@ -3,9 +3,9 @@
 # Contato: maykonglaffite@gmail.com   |  github: @maykongpedro   
 # Sript 3: Análise SARG
 
-
-# Instalar pacotes
-# install.packages("magrittr", "readr")
+# Instalar pacotes --------------------------------------------------------
+# install.packages("magrittr")
+# install.packages("readr")
 
 
 # Carregar pacotes --------------------------------------------------------

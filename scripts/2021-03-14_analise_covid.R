@@ -3,10 +3,11 @@
 # Contato: maykonglaffite@gmail.com   |  github: @maykongpedro   
 # Sript 2: Análise Covid
 
-
-# Instalar pacotes
-#install.packages("magrittr", "readr", "fs", "lubridate")
-
+# Instalar pacotes --------------------------------------------------------
+# install.packages("magrittr")
+# install.packages("readr")
+# install.packages("fs")
+# install.packages("lubridate")
 
 # Carregar pacotes --------------------------------------------------------
 library(magrittr)
