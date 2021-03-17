@@ -2,5 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-*.csv
 *.pdf
+dados/InfoGripe/serie_temporal_com_estimativas_recentes.csv
+dados/HIST_PAINEL_COVIDBR_13mar2021.csv
