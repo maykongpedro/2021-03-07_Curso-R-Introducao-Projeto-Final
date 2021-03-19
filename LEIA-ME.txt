@@ -53,7 +53,7 @@
 	<https://gitlab.procc.fiocruz.br/mave/repo/-/tree/master/Dados/InfoGripe>. Acesso realizado em 10 de Mar. de 2021.
 
 	2. Dados referentes à COVID-19. Disponível em:
-	<https://gitlab.procc.fiocruz.br/mave/repo/-/tree/master/Dados/InfoGripe>. Acesso realizado em 13 de Mar. de 2021.
+	<https://covid.saude.gov.br>. Acesso realizado em 13 de Mar. de 2021.
 
 
 # Apoio teórico
